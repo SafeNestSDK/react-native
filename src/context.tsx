@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useMemo, useEffect, useRef } from 'react';
-import { SafeNestClient, SafeNestConfig } from '@safenest/sdk';
+import React, { createContext, useContext, useMemo, useRef } from 'react';
+import { SafeNestClient, SafeNestOptions } from '@safenest/sdk';
 
 /**
  * Props for SafeNestProvider.
@@ -8,7 +8,7 @@ export interface SafeNestProviderProps {
   /** Your SafeNest API key */
   apiKey: string;
   /** Optional configuration */
-  config?: Omit<SafeNestConfig, 'apiKey'>;
+  options?: SafeNestOptions;
   /** React children */
   children: React.ReactNode;
 }
@@ -43,17 +43,14 @@ const SafeNestContext = createContext<SafeNestContextValue | null>(null);
  */
 export function SafeNestProvider({
   apiKey,
-  config,
+  options,
   children,
 }: SafeNestProviderProps): JSX.Element {
   const clientRef = useRef<SafeNestClient | null>(null);
 
   // Create client only once
   if (!clientRef.current) {
-    clientRef.current = new SafeNestClient({
-      apiKey,
-      ...config,
-    });
+    clientRef.current = new SafeNestClient(apiKey, options);
   }
 
   const value = useMemo<SafeNestContextValue>(
@@ -82,8 +79,8 @@ export function SafeNestProvider({
  *   const { client } = useSafeNestClient();
  *
  *   const checkMessage = async (text: string) => {
- *     const result = await client.analyze({ text });
- *     console.log(result.riskLevel);
+ *     const result = await client.analyze({ content: text });
+ *     console.log(result.risk_level);
  *   };
  * }
  * ```

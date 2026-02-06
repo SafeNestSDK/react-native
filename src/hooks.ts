@@ -2,15 +2,15 @@ import { useState, useCallback } from 'react';
 import {
   SafeNestClient,
   DetectBullyingInput,
-  DetectBullyingResult,
+  BullyingResult,
   DetectGroomingInput,
-  DetectGroomingResult,
+  GroomingResult,
   DetectUnsafeInput,
-  DetectUnsafeResult,
+  UnsafeResult,
   AnalyzeInput,
   AnalyzeResult,
   AnalyzeEmotionsInput,
-  AnalyzeEmotionsResult,
+  EmotionsResult,
   GetActionPlanInput,
   ActionPlanResult,
   GenerateReportInput,
@@ -49,24 +49,24 @@ export interface UseAsyncResult<T, I> extends AsyncState<T> {
  *   const { data, loading, error, execute } = useDetectBullying();
  *
  *   const handleCheck = async () => {
- *     const result = await execute({ text: 'Message to check' });
- *     if (result.isBullying) {
+ *     const result = await execute({ content: 'Message to check' });
+ *     if (result.is_bullying) {
  *       console.log('Bullying detected!');
  *     }
  *   };
  * }
  * ```
  */
-export function useDetectBullying(): UseAsyncResult<DetectBullyingResult, DetectBullyingInput> {
+export function useDetectBullying(): UseAsyncResult<BullyingResult, DetectBullyingInput> {
   const { client } = useSafeNestClient();
-  const [state, setState] = useState<AsyncState<DetectBullyingResult>>({
+  const [state, setState] = useState<AsyncState<BullyingResult>>({
     data: null,
     loading: false,
     error: null,
   });
 
   const execute = useCallback(
-    async (input: DetectBullyingInput): Promise<DetectBullyingResult> => {
+    async (input: DetectBullyingInput): Promise<BullyingResult> => {
       setState({ data: null, loading: true, error: null });
       try {
         const result = await client.detectBullying(input);
@@ -91,16 +91,16 @@ export function useDetectBullying(): UseAsyncResult<DetectBullyingResult, Detect
 /**
  * Hook for grooming detection.
  */
-export function useDetectGrooming(): UseAsyncResult<DetectGroomingResult, DetectGroomingInput> {
+export function useDetectGrooming(): UseAsyncResult<GroomingResult, DetectGroomingInput> {
   const { client } = useSafeNestClient();
-  const [state, setState] = useState<AsyncState<DetectGroomingResult>>({
+  const [state, setState] = useState<AsyncState<GroomingResult>>({
     data: null,
     loading: false,
     error: null,
   });
 
   const execute = useCallback(
-    async (input: DetectGroomingInput): Promise<DetectGroomingResult> => {
+    async (input: DetectGroomingInput): Promise<GroomingResult> => {
       setState({ data: null, loading: true, error: null });
       try {
         const result = await client.detectGrooming(input);
@@ -125,16 +125,16 @@ export function useDetectGrooming(): UseAsyncResult<DetectGroomingResult, Detect
 /**
  * Hook for unsafe content detection.
  */
-export function useDetectUnsafe(): UseAsyncResult<DetectUnsafeResult, DetectUnsafeInput> {
+export function useDetectUnsafe(): UseAsyncResult<UnsafeResult, DetectUnsafeInput> {
   const { client } = useSafeNestClient();
-  const [state, setState] = useState<AsyncState<DetectUnsafeResult>>({
+  const [state, setState] = useState<AsyncState<UnsafeResult>>({
     data: null,
     loading: false,
     error: null,
   });
 
   const execute = useCallback(
-    async (input: DetectUnsafeInput): Promise<DetectUnsafeResult> => {
+    async (input: DetectUnsafeInput): Promise<UnsafeResult> => {
       setState({ data: null, loading: true, error: null });
       try {
         const result = await client.detectUnsafe(input);
@@ -166,8 +166,8 @@ export function useDetectUnsafe(): UseAsyncResult<DetectUnsafeResult, DetectUnsa
  *   const [message, setMessage] = useState('');
  *
  *   const handleSend = async () => {
- *     const result = await execute({ text: message });
- *     if (result.riskLevel === 'critical') {
+ *     const result = await execute({ content: message });
+ *     if (result.risk_level === 'critical') {
  *       Alert.alert('Message blocked', result.summary);
  *       return;
  *     }
@@ -210,16 +210,16 @@ export function useAnalyze(): UseAsyncResult<AnalyzeResult, AnalyzeInput> {
 /**
  * Hook for emotion analysis.
  */
-export function useAnalyzeEmotions(): UseAsyncResult<AnalyzeEmotionsResult, AnalyzeEmotionsInput> {
+export function useAnalyzeEmotions(): UseAsyncResult<EmotionsResult, AnalyzeEmotionsInput> {
   const { client } = useSafeNestClient();
-  const [state, setState] = useState<AsyncState<AnalyzeEmotionsResult>>({
+  const [state, setState] = useState<AsyncState<EmotionsResult>>({
     data: null,
     loading: false,
     error: null,
   });
 
   const execute = useCallback(
-    async (input: AnalyzeEmotionsInput): Promise<AnalyzeEmotionsResult> => {
+    async (input: AnalyzeEmotionsInput): Promise<EmotionsResult> => {
       setState({ data: null, loading: true, error: null });
       try {
         const result = await client.analyzeEmotions(input);

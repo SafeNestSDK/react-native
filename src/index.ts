@@ -8,7 +8,7 @@
 export {
   // Client
   SafeNestClient,
-  type SafeNestConfig,
+  type SafeNestOptions,
 
   // Input types
   type DetectBullyingInput,
@@ -20,11 +20,11 @@ export {
   type GenerateReportInput,
 
   // Result types
-  type DetectBullyingResult,
-  type DetectGroomingResult,
-  type DetectUnsafeResult,
+  type BullyingResult,
+  type GroomingResult,
+  type UnsafeResult,
   type AnalyzeResult,
-  type AnalyzeEmotionsResult,
+  type EmotionsResult,
   type ActionPlanResult,
   type ReportResult,
 
@@ -33,13 +33,17 @@ export {
   type EmotionMessage,
   type ReportMessage,
 
+  // Context type
+  type ContextInput,
+
   // Enums
   Severity,
   GroomingRisk,
   RiskLevel,
   EmotionTrend,
-  Audience,
-  MessageRole,
+
+  // Audience type
+  type Audience,
 
   // Errors
   SafeNestError,
@@ -52,9 +56,7 @@ export {
   NetworkError,
 
   // Utilities
-  type AnalysisContext,
   type Usage,
-  type TrackingFields,
 } from '@safenest/sdk';
 
 // React Native specific exports
