@@ -48,7 +48,7 @@
     "url": "https://github.com/SafeNestSDK/react-native/issues"
   },
   "dependencies": {
-    "@safenest/sdk": "^1.0.0"
+    "@safenest/sdk": "^1.0.2"
   },
   "peerDependencies": {
     "react": ">=17.0.0",
