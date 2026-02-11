@@ -370,6 +370,31 @@ const styles = StyleSheet.create({
 
 ---
 
+## Best Practices
+
+### Message Batching
+
+The **bullying** and **unsafe content** methods analyze a single `text` field per request. If your app receives messages one at a time, concatenate a **sliding window of recent messages** into one string before calling the API. Single words or short fragments lack context for accurate detection and can be exploited to bypass safety filters.
+
+```typescript
+// Bad — each message analyzed in isolation, easily evaded
+for (const msg of messages) {
+  await client.detectBullying({ text: msg });
+}
+
+// Good — recent messages analyzed together
+const window = recentMessages.slice(-10).join(' ');
+await client.detectBullying({ text: window });
+```
+
+The **grooming** method already accepts a `messages[]` array and analyzes the full conversation in context.
+
+### PII Redaction
+
+Enable `PII_REDACTION_ENABLED=true` on your SafeNest API to automatically strip emails, phone numbers, URLs, social handles, IPs, and other PII from detection summaries and webhook payloads. The original text is still analyzed in full — only stored outputs are scrubbed.
+
+---
+
 ## Support
 
 - **API Docs**: [api.safenest.dev/docs](https://api.safenest.dev/docs)

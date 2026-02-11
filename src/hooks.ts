@@ -15,6 +15,8 @@ import {
   ActionPlanResult,
   GenerateReportInput,
   ReportResult,
+  AccountDeletionResult,
+  AccountExportResult,
 } from '@safenest/sdk';
 import { useSafeNestClient } from './context';
 
@@ -291,6 +293,74 @@ export function useGenerateReport(): UseAsyncResult<ReportResult, GenerateReport
       setState({ data: null, loading: true, error: null });
       try {
         const result = await client.generateReport(input);
+        setState({ data: result, loading: false, error: null });
+        return result;
+      } catch (err) {
+        const error = err instanceof Error ? err : new Error(String(err));
+        setState({ data: null, loading: false, error });
+        throw error;
+      }
+    },
+    [client]
+  );
+
+  const reset = useCallback(() => {
+    setState({ data: null, loading: false, error: null });
+  }, []);
+
+  return { ...state, execute, reset };
+}
+
+/**
+ * Hook for account data deletion (GDPR Article 17 — Right to Erasure).
+ */
+export function useDeleteAccountData(): Omit<UseAsyncResult<AccountDeletionResult, void>, 'execute'> & { execute: () => Promise<AccountDeletionResult> } {
+  const { client } = useSafeNestClient();
+  const [state, setState] = useState<AsyncState<AccountDeletionResult>>({
+    data: null,
+    loading: false,
+    error: null,
+  });
+
+  const execute = useCallback(
+    async (): Promise<AccountDeletionResult> => {
+      setState({ data: null, loading: true, error: null });
+      try {
+        const result = await client.deleteAccountData();
+        setState({ data: result, loading: false, error: null });
+        return result;
+      } catch (err) {
+        const error = err instanceof Error ? err : new Error(String(err));
+        setState({ data: null, loading: false, error });
+        throw error;
+      }
+    },
+    [client]
+  );
+
+  const reset = useCallback(() => {
+    setState({ data: null, loading: false, error: null });
+  }, []);
+
+  return { ...state, execute, reset };
+}
+
+/**
+ * Hook for account data export (GDPR Article 20 — Right to Data Portability).
+ */
+export function useExportAccountData(): Omit<UseAsyncResult<AccountExportResult, void>, 'execute'> & { execute: () => Promise<AccountExportResult> } {
+  const { client } = useSafeNestClient();
+  const [state, setState] = useState<AsyncState<AccountExportResult>>({
+    data: null,
+    loading: false,
+    error: null,
+  });
+
+  const execute = useCallback(
+    async (): Promise<AccountExportResult> => {
+      setState({ data: null, loading: true, error: null });
+      try {
+        const result = await client.exportAccountData();
         setState({ data: result, loading: false, error: null });
         return result;
       } catch (err) {

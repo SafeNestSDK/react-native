@@ -55,6 +55,10 @@ export {
   TimeoutError,
   NetworkError,
 
+  // Account types (GDPR)
+  type AccountDeletionResult,
+  type AccountExportResult,
+
   // Utilities
   type Usage,
 } from '@safenest/sdk';
@@ -71,5 +75,7 @@ export {
   useAnalyzeEmotions,
   useGetActionPlan,
   useGenerateReport,
+  useDeleteAccountData,
+  useExportAccountData,
 } from './hooks';
 export type { AsyncState, UseAsyncResult } from './hooks';
