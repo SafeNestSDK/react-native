@@ -1,5 +1,5 @@
 /**
- * SafeNest React Native SDK
+ * Tuteliq React Native SDK
  *
  * @packageDocumentation
  */
@@ -7,8 +7,8 @@
 // Re-export everything from the core SDK
 export {
   // Client
-  SafeNestClient,
-  type SafeNestOptions,
+  TuteliqClient,
+  type TuteliqOptions,
 
   // Input types
   type DetectBullyingInput,
@@ -46,7 +46,7 @@ export {
   type Audience,
 
   // Errors
-  SafeNestError,
+  TuteliqError,
   AuthenticationError,
   RateLimitError,
   ValidationError,
@@ -59,13 +59,31 @@ export {
   type AccountDeletionResult,
   type AccountExportResult,
 
+  // Consent types (GDPR)
+  type ConsentType,
+  type ConsentStatus,
+  type RecordConsentInput,
+  type ConsentRecord,
+  type ConsentStatusResult,
+  type ConsentActionResult,
+
+  // Rectification types (GDPR)
+  type RectifyDataInput,
+  type RectifyDataResult,
+
+  // Audit log types (GDPR)
+  type AuditAction,
+  type AuditLogEntry,
+  type AuditLogsResult,
+  type GetAuditLogsOptions,
+
   // Utilities
   type Usage,
-} from '@safenest/sdk';
+} from '@tuteliq/sdk';
 
 // React Native specific exports
-export { SafeNestProvider, useSafeNestClient } from './context';
-export type { SafeNestProviderProps, SafeNestContextValue } from './context';
+export { TuteliqProvider, useTuteliqClient } from './context';
+export type { TuteliqProviderProps, TuteliqContextValue } from './context';
 
 export {
   useDetectBullying,
@@ -77,5 +95,10 @@ export {
   useGenerateReport,
   useDeleteAccountData,
   useExportAccountData,
+  useRecordConsent,
+  useGetConsentStatus,
+  useWithdrawConsent,
+  useRectifyData,
+  useGetAuditLogs,
 } from './hooks';
 export type { AsyncState, UseAsyncResult } from './hooks';

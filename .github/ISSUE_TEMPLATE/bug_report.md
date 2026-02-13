@@ -1,6 +1,6 @@
 ---
 name: Bug Report
-about: Report a bug in the SafeNest React Native SDK
+about: Report a bug in the Tuteliq React Native SDK
 title: "[Bug] "
 labels: bug
 assignees: ""

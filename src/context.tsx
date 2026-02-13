@@ -1,14 +1,14 @@
 import React, { createContext, useContext, useMemo, useRef } from 'react';
-import { SafeNestClient, SafeNestOptions } from '@safenest/sdk';
+import { TuteliqClient, TuteliqOptions } from '@tuteliq/sdk';
 
 /**
- * Props for SafeNestProvider.
+ * Props for TuteliqProvider.
  */
-export interface SafeNestProviderProps {
-  /** Your SafeNest API key */
+export interface TuteliqProviderProps {
+  /** Your Tuteliq API key */
   apiKey: string;
   /** Optional configuration */
-  options?: SafeNestOptions;
+  options?: TuteliqOptions;
   /** React children */
   children: React.ReactNode;
 }
@@ -16,44 +16,44 @@ export interface SafeNestProviderProps {
 /**
  * Context value type.
  */
-export interface SafeNestContextValue {
-  /** The SafeNest client instance */
-  client: SafeNestClient;
+export interface TuteliqContextValue {
+  /** The Tuteliq client instance */
+  client: TuteliqClient;
   /** Whether the client is ready */
   isReady: boolean;
 }
 
-const SafeNestContext = createContext<SafeNestContextValue | null>(null);
+const TuteliqContext = createContext<TuteliqContextValue | null>(null);
 
 /**
- * Provider component for SafeNest client.
+ * Provider component for Tuteliq client.
  *
  * @example
  * ```tsx
- * import { SafeNestProvider } from '@safenest/react-native';
+ * import { TuteliqProvider } from '@tuteliq/react-native';
  *
  * function App() {
  *   return (
- *     <SafeNestProvider apiKey="your-api-key">
+ *     <TuteliqProvider apiKey="your-api-key">
  *       <YourApp />
- *     </SafeNestProvider>
+ *     </TuteliqProvider>
  *   );
  * }
  * ```
  */
-export function SafeNestProvider({
+export function TuteliqProvider({
   apiKey,
   options,
   children,
-}: SafeNestProviderProps): JSX.Element {
-  const clientRef = useRef<SafeNestClient | null>(null);
+}: TuteliqProviderProps): JSX.Element {
+  const clientRef = useRef<TuteliqClient | null>(null);
 
   // Create client only once
   if (!clientRef.current) {
-    clientRef.current = new SafeNestClient(apiKey, options);
+    clientRef.current = new TuteliqClient(apiKey, options);
   }
 
-  const value = useMemo<SafeNestContextValue>(
+  const value = useMemo<TuteliqContextValue>(
     () => ({
       client: clientRef.current!,
       isReady: true,
@@ -62,21 +62,21 @@ export function SafeNestProvider({
   );
 
   return (
-    <SafeNestContext.Provider value={value}>
+    <TuteliqContext.Provider value={value}>
       {children}
-    </SafeNestContext.Provider>
+    </TuteliqContext.Provider>
   );
 }
 
 /**
- * Hook to access the SafeNest client.
+ * Hook to access the Tuteliq client.
  *
- * @throws Error if used outside of SafeNestProvider
+ * @throws Error if used outside of TuteliqProvider
  *
  * @example
  * ```tsx
  * function MyComponent() {
- *   const { client } = useSafeNestClient();
+ *   const { client } = useTuteliqClient();
  *
  *   const checkMessage = async (text: string) => {
  *     const result = await client.analyze({ content: text });
@@ -85,11 +85,11 @@ export function SafeNestProvider({
  * }
  * ```
  */
-export function useSafeNestClient(): SafeNestContextValue {
-  const context = useContext(SafeNestContext);
+export function useTuteliqClient(): TuteliqContextValue {
+  const context = useContext(TuteliqContext);
 
   if (!context) {
-    throw new Error('useSafeNestClient must be used within a SafeNestProvider');
+    throw new Error('useTuteliqClient must be used within a TuteliqProvider');
   }
 
   return context;

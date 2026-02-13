@@ -1,23 +1,23 @@
 <p align="center">
-  <img src="./assets/logo.png" alt="SafeNest" width="200" />
+  <img src="./assets/logo.png" alt="Tuteliq" width="200" />
 </p>
 
-<h1 align="center">SafeNest React Native SDK</h1>
+<h1 align="center">Tuteliq React Native SDK</h1>
 
 <p align="center">
-  <strong>Official React Native SDK for the SafeNest API</strong><br>
+  <strong>Official React Native SDK for the Tuteliq API</strong><br>
   AI-powered child safety analysis
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/@safenest/react-native"><img src="https://img.shields.io/npm/v/@safenest/react-native.svg" alt="npm version"></a>
-  <a href="https://github.com/SafeNestSDK/react-native/actions"><img src="https://img.shields.io/github/actions/workflow/status/SafeNestSDK/react-native/ci.yml" alt="build status"></a>
-  <a href="https://github.com/SafeNestSDK/react-native/blob/main/LICENSE"><img src="https://img.shields.io/github/license/SafeNestSDK/react-native.svg" alt="license"></a>
+  <a href="https://www.npmjs.com/package/@tuteliq/react-native"><img src="https://img.shields.io/npm/v/@tuteliq/react-native.svg" alt="npm version"></a>
+  <a href="https://github.com/Tuteliq/react-native/actions"><img src="https://img.shields.io/github/actions/workflow/status/Tuteliq/react-native/ci.yml" alt="build status"></a>
+  <a href="https://github.com/Tuteliq/react-native/blob/main/LICENSE"><img src="https://img.shields.io/github/license/Tuteliq/react-native.svg" alt="license"></a>
 </p>
 
 <p align="center">
-  <a href="https://api.safenest.dev/docs">API Docs</a> •
-  <a href="https://safenest.app">Dashboard</a> •
+  <a href="https://api.tuteliq.ai/docs">API Docs</a> •
+  <a href="https://tuteliq.app">Dashboard</a> •
   <a href="https://discord.gg/7kbTeRYRXD">Discord</a>
 </p>
 
@@ -26,9 +26,9 @@
 ## Installation
 
 ```bash
-npm install @safenest/react-native
+npm install @tuteliq/react-native
 # or
-yarn add @safenest/react-native
+yarn add @tuteliq/react-native
 ```
 
 ### Requirements
@@ -42,16 +42,16 @@ yarn add @safenest/react-native
 
 ### Setup Provider
 
-Wrap your app with `SafeNestProvider`:
+Wrap your app with `TuteliqProvider`:
 
 ```tsx
-import { SafeNestProvider } from '@safenest/react-native';
+import { TuteliqProvider } from '@tuteliq/react-native';
 
 export default function App() {
   return (
-    <SafeNestProvider apiKey="your-api-key">
+    <TuteliqProvider apiKey="your-api-key">
       <YourApp />
-    </SafeNestProvider>
+    </TuteliqProvider>
   );
 }
 ```
@@ -59,7 +59,7 @@ export default function App() {
 ### Use Hooks
 
 ```tsx
-import { useAnalyze, RiskLevel } from '@safenest/react-native';
+import { useAnalyze, RiskLevel } from '@tuteliq/react-native';
 import { Alert } from 'react-native';
 
 function ChatInput() {
@@ -93,9 +93,9 @@ function ChatInput() {
 ### Provider
 
 ```tsx
-import { SafeNestProvider } from '@safenest/react-native';
+import { TuteliqProvider } from '@tuteliq/react-native';
 
-<SafeNestProvider
+<TuteliqProvider
   apiKey="your-api-key"
   config={{
     timeout: 30000,      // Request timeout in ms
@@ -104,7 +104,7 @@ import { SafeNestProvider } from '@safenest/react-native';
   }}
 >
   {children}
-</SafeNestProvider>
+</TuteliqProvider>
 ```
 
 ### Hooks
@@ -119,7 +119,7 @@ All hooks return:
 #### useDetectBullying
 
 ```tsx
-import { useDetectBullying } from '@safenest/react-native';
+import { useDetectBullying } from '@tuteliq/react-native';
 
 function MyComponent() {
   const { data, loading, error, execute } = useDetectBullying();
@@ -137,7 +137,7 @@ function MyComponent() {
 #### useDetectGrooming
 
 ```tsx
-import { useDetectGrooming, MessageRole } from '@safenest/react-native';
+import { useDetectGrooming, MessageRole } from '@tuteliq/react-native';
 
 const { execute } = useDetectGrooming();
 
@@ -153,7 +153,7 @@ const result = await execute({
 #### useDetectUnsafe
 
 ```tsx
-import { useDetectUnsafe } from '@safenest/react-native';
+import { useDetectUnsafe } from '@tuteliq/react-native';
 
 const { execute } = useDetectUnsafe();
 
@@ -168,7 +168,7 @@ if (result.unsafe) {
 Quick analysis combining bullying and unsafe detection:
 
 ```tsx
-import { useAnalyze, RiskLevel } from '@safenest/react-native';
+import { useAnalyze, RiskLevel } from '@tuteliq/react-native';
 
 const { execute } = useAnalyze();
 
@@ -181,7 +181,7 @@ console.log('Summary:', result.summary);
 #### useAnalyzeEmotions
 
 ```tsx
-import { useAnalyzeEmotions } from '@safenest/react-native';
+import { useAnalyzeEmotions } from '@tuteliq/react-native';
 
 const { execute } = useAnalyzeEmotions();
 
@@ -193,7 +193,7 @@ console.log('Trend:', result.trend);
 #### useGetActionPlan
 
 ```tsx
-import { useGetActionPlan, Audience, Severity } from '@safenest/react-native';
+import { useGetActionPlan, Audience, Severity } from '@tuteliq/react-native';
 
 const { execute } = useGetActionPlan();
 
@@ -209,7 +209,7 @@ console.log('Steps:', plan.steps);
 #### useGenerateReport
 
 ```tsx
-import { useGenerateReport } from '@safenest/react-native';
+import { useGenerateReport } from '@tuteliq/react-native';
 
 const { execute } = useGenerateReport();
 
@@ -228,10 +228,10 @@ console.log('Summary:', report.summary);
 For advanced use cases, access the client directly:
 
 ```tsx
-import { useSafeNestClient } from '@safenest/react-native';
+import { useTuteliqClient } from '@tuteliq/react-native';
 
 function MyComponent() {
-  const { client } = useSafeNestClient();
+  const { client } = useTuteliqClient();
 
   const customAnalysis = async () => {
     const result = await client.detectBullying({
@@ -272,7 +272,7 @@ import {
   AuthenticationError,
   RateLimitError,
   ValidationError,
-} from '@safenest/react-native';
+} from '@tuteliq/react-native';
 
 function MyComponent() {
   const { execute, error } = useAnalyze();
@@ -305,7 +305,7 @@ function MyComponent() {
 ```tsx
 import React, { useState } from 'react';
 import { View, TextInput, Button, Text, Alert, StyleSheet } from 'react-native';
-import { SafeNestProvider, useAnalyze, RiskLevel } from '@safenest/react-native';
+import { TuteliqProvider, useAnalyze, RiskLevel } from '@tuteliq/react-native';
 
 function ChatScreen() {
   const [message, setMessage] = useState('');
@@ -355,9 +355,9 @@ function ChatScreen() {
 
 export default function App() {
   return (
-    <SafeNestProvider apiKey={process.env.SAFENEST_API_KEY!}>
+    <TuteliqProvider apiKey={process.env.TUTELIQ_API_KEY!}>
       <ChatScreen />
-    </SafeNestProvider>
+    </TuteliqProvider>
   );
 }
 
@@ -391,16 +391,16 @@ The **grooming** method already accepts a `messages[]` array and analyzes the fu
 
 ### PII Redaction
 
-Enable `PII_REDACTION_ENABLED=true` on your SafeNest API to automatically strip emails, phone numbers, URLs, social handles, IPs, and other PII from detection summaries and webhook payloads. The original text is still analyzed in full — only stored outputs are scrubbed.
+Enable `PII_REDACTION_ENABLED=true` on your Tuteliq API to automatically strip emails, phone numbers, URLs, social handles, IPs, and other PII from detection summaries and webhook payloads. The original text is still analyzed in full — only stored outputs are scrubbed.
 
 ---
 
 ## Support
 
-- **API Docs**: [api.safenest.dev/docs](https://api.safenest.dev/docs)
+- **API Docs**: [api.tuteliq.ai/docs](https://api.tuteliq.ai/docs)
 - **Discord**: [discord.gg/7kbTeRYRXD](https://discord.gg/7kbTeRYRXD)
-- **Email**: support@safenest.dev
-- **Issues**: [GitHub Issues](https://github.com/SafeNestSDK/react-native/issues)
+- **Email**: support@tuteliq.ai
+- **Issues**: [GitHub Issues](https://github.com/Tuteliq/react-native/issues)
 
 ---
 
@@ -410,6 +410,31 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 ---
 
+## The Mission: Why This Matters
+
+Before you decide to contribute or sponsor, read these numbers. They are not projections. They are not estimates from a pitch deck. They are verified statistics from the University of Edinburgh, UNICEF, NCMEC, and Interpol.
+
+- **302 million** children are victims of online sexual exploitation and abuse every year. That is **10 children every second**. *(Childlight / University of Edinburgh, 2024)*
+- **1 in 8** children globally have been victims of non-consensual sexual imagery in the past year. *(Childlight, 2024)*
+- **370 million** girls and women alive today experienced rape or sexual assault in childhood. An estimated **240–310 million** boys and men experienced the same. *(UNICEF, 2024)*
+- **29.2 million** incidents of suspected child sexual exploitation were reported to NCMEC's CyberTipline in 2024 alone — containing **62.9 million files** (images, videos). *(NCMEC, 2025)*
+- **546,000** reports of online enticement (adults grooming children) in 2024 — a **192% increase** from the year before. *(NCMEC, 2025)*
+- **1,325% increase** in AI-generated child sexual abuse material reports between 2023 and 2024. The technology that should protect children is being weaponized against them. *(NCMEC, 2025)*
+- **100 sextortion reports per day** to NCMEC. Since 2021, at least **36 teenage boys** have taken their own lives because they were victimized by sextortion. *(NCMEC, 2025)*
+- **84%** of reports resolve outside the United States. This is not an American problem. This is a **global emergency**. *(NCMEC, 2025)*
+
+End-to-end encryption is making platforms blind. In 2024, platforms reported **7 million fewer incidents** than the year before — not because abuse stopped, but because they can no longer see it. The tools that catch known images are failing. The systems that rely on human moderators are overwhelmed. The technology to detect behavior — grooming patterns, escalation, manipulation — in real-time text conversations **exists right now**. It is running at [api.tuteliq.ai](https://api.tuteliq.ai).
+
+The question is not whether this technology is possible. The question is whether we build the company to put it everywhere it needs to be.
+
+**Every second we wait, another child is harmed.**
+
+We have the technology. We need the support.
+
+If this mission matters to you, consider [sponsoring our open-source work](https://github.com/sponsors/Tuteliq) so we can keep building the tools that protect children — and keep them free and accessible for everyone.
+
+---
+
 <p align="center">
-  <sub>Built with care for child safety by the <a href="https://safenest.dev">SafeNest</a> team</sub>
+  <sub>Built with care for child safety by the <a href="https://tuteliq.ai">Tuteliq</a> team</sub>
 </p>
